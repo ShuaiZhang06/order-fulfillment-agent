@@ -97,7 +97,10 @@ def ask_seller(order, product):
     print()
     print(f"  Order {order['order_id']}: {order['quantity']} x {product['name']}")
     print(f"  Ship to: {order['buyer_name']}, {order['address']}, phone {order['phone']}")
-    answer = input("  Approve shipment? [y/n] ")
+    try:
+        answer = input("  Approve shipment? [y/n] ")
+    except EOFError:   # no one can answer (input is closed), so treat it as "no"
+        answer = ""
     return answer.strip().lower() in ["y", "yes"], "seller"
 
 

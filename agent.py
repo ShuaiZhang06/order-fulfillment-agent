@@ -126,7 +126,7 @@ def run_tool(action, argument):
     try:
         return TOOLS[action](**args)
     except Exception as error:
-        return {"ok": False, "message": f"Tool error: {error}", "data": {}}
+        return {"ok": False, "message": f"Tool error: {type(error).__name__}: {error}", "data": {}}
 
 
 def run_episode(order_id, run_id):

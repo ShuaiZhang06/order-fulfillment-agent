@@ -88,6 +88,19 @@ def test_only_y_or_yes_counts_as_seller_approval(monkeypatch, answer, approved):
     assert store.read_jsonl("approvals.jsonl")[0]["approver"] == "seller"
 
 
+def test_no_answer_from_the_seller_counts_as_a_decline(monkeypatch):
+    monkeypatch.setattr(tools, "APPROVAL_MODE", "ask")
+
+    def input_closed(prompt):
+        raise EOFError
+
+    monkeypatch.setattr("builtins.input", input_closed)
+    r = book_shipment("1001")
+    assert r["ok"] is False
+    assert r["data"]["approved"] is False
+    assert store.read_json("shipments.json") == []
+
+
 def test_same_order_cannot_be_booked_twice():
     book_shipment("1001")
     r = book_shipment("1001")

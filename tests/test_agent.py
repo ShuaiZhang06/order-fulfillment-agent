@@ -55,7 +55,7 @@ def test_extra_arguments_are_ignored():
 def test_tool_crash_becomes_a_failed_result():
     r = agent.run_tool("message_buyer", {"order_id": "1003", "message_type": "missing_info_request", "text": None})
     assert r["ok"] is False
-    assert "Tool error" in r["message"]
+    assert "Tool error: AttributeError" in r["message"]
 
 
 # --- run_episode -----------------------------------------------------------
