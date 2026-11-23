@@ -1,0 +1,29 @@
+[
+  {
+    "order_id": "1001",
+    "buyer_name": "Alice Chen",
+    "phone": "9194050601",
+    "address": "12 Maple St, Springfield",
+    "sku": "MUG-01",
+    "quantity": 2,
+    "status": "new"
+  },
+  {
+    "order_id": "1002",
+    "buyer_name": "Bob Li",
+    "phone": "2462147546",
+    "address": "48 Oak Ave, Riverton",
+    "sku": "MUG-01",
+    "quantity": 12,
+    "status": "new"
+  },
+  {
+    "order_id": "1003",
+    "buyer_name": "Carol Wang",
+    "phone": "6180602958",
+    "address": "",
+    "sku": "MUG-01",
+    "quantity": 1,
+    "status": "new"
+  }
+]
