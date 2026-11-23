@@ -1,0 +1,32 @@
+[
+  {
+    "case": "1001 seller approves",
+    "order_id": "1001",
+    "approval": "yes",
+    "expected": {"outcome": "shipped", "booked": true, "buyer_message": "shipping_confirmation", "stock_after": 8}
+  },
+  {
+    "case": "1002 not enough stock",
+    "order_id": "1002",
+    "approval": "yes",
+    "expected": {"outcome": "cannot_ship", "booked": false, "buyer_message": "cannot_ship_notice", "stock_after": 10}
+  },
+  {
+    "case": "1003 missing address",
+    "order_id": "1003",
+    "approval": "yes",
+    "expected": {"outcome": "needs_info", "booked": false, "buyer_message": "missing_info_request", "stock_after": 10}
+  },
+  {
+    "case": "1001 seller declines",
+    "order_id": "1001",
+    "approval": "no",
+    "expected": {"outcome": "declined", "booked": false, "buyer_message": null, "stock_after": 10}
+  },
+  {
+    "case": "9999 does not exist",
+    "order_id": "9999",
+    "approval": "yes",
+    "expected": {"outcome": "not_found", "booked": false, "buyer_message": null, "stock_after": 10}
+  }
+]
