@@ -198,7 +198,6 @@ run.py            command-line entry point and chat mode
 evaluate.py       compare runs with the expected answers
 tests/            unit tests and expected.json
 examples/         recorded sample runs
-docs/PRD.md       requirements document (in Chinese)
 ```
 
 Settings can be changed with environment variables: `OLLAMA_MODEL` (default

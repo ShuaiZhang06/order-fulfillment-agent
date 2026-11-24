@@ -23,7 +23,7 @@ import verify
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434/api/chat")
 MODEL = os.environ.get("OLLAMA_MODEL", "qwen3:8b")
-TEMPERATURE = 0.6   # the Ollama default for qwen3:8b (PRD 7.1)
+TEMPERATURE = 0.6   # the Ollama default for qwen3:8b; keeps a little randomness
 MAX_STEPS = 8
 
 # The model picks an action by name; Python looks up the function here.
