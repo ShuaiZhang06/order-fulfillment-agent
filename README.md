@@ -106,10 +106,17 @@ Make sure Ollama is running (the desktop app, or `ollama serve`).
 ## Running
 
 ```bash
+python run.py                  # chat mode: type requests such as "check order 1001"
 python run.py --reset          # copy the sample data from data/seed/ into state/
 python run.py --order 1001     # process one order; you approve in the terminal
 python run.py --all            # process every order whose status is "new"
 ```
+
+In chat mode you type at a `seller>` prompt, for example `check order 1001` or
+`what about 1003?`. Python picks the order number out of your text (it must
+contain exactly one number) and runs the same agent as `--order`, including the
+approval prompt. `all`, `reset` and `quit` also work. Each request is processed
+on its own; the agent does not remember earlier requests.
 
 Each step prints the model's reason, the action, and the tool result. After a
 run, look at the records in `state/`:
@@ -136,10 +143,13 @@ python run.py --order 1001     # answer n: declined, nothing is booked
 python run.py --order 9999     # order does not exist
 ```
 
+Or run the same demo in chat mode: start `python run.py` and type
+`check order 1001`, `check order 1002`, `check order 1003`.
+
 ## Testing
 
 ```bash
-pytest                         # 57 unit tests, no Ollama needed
+pytest                         # 64 unit tests, no Ollama needed
 python evaluate.py             # run all 5 cases with the real model
 python evaluate.py --repeat 5  # run each case 5 times and report pass rates
 ```
@@ -172,6 +182,7 @@ All three safety counts were 0 over 25 runs. Each run took 8 to 32 seconds on a 
 | `trace.jsonl`, `outbox.jsonl`, `shipments.json`, `approvals.jsonl` | The records from that run |
 | `console_seller_declines.txt` | Order 1001 with the seller answering `n` |
 | `console_order_not_found.txt` | Order 9999 |
+| `console_chat_mode.txt` | Chat mode: two orders, plus two requests without exactly one order number |
 | `evaluation.txt` | Output of `evaluate.py --repeat 5` |
 | `evaluation_details.json` | Full traces and messages of those 25 runs |
 
@@ -183,7 +194,7 @@ store.py          read and write the JSON files in state/
 tools.py          order rules, simulated courier, and the three tools
 verify.py         finish(): check the claimed outcome against the records
 agent.py          system prompt, Ollama call, TOOLS table, and the agent loop
-run.py            command-line entry point
+run.py            command-line entry point and chat mode
 evaluate.py       compare runs with the expected answers
 tests/            unit tests and expected.json
 examples/         recorded sample runs
@@ -199,5 +210,7 @@ This is a deliberately small mini project. Left for the final project:
 
 - a separate tool to look up tracking numbers that are not ready yet,
 - more failure cases, such as a courier refusing a remote address,
+- letting the model understand the seller's requests (chat mode currently finds
+  the order number with Python only),
 - buyers placing orders in free text,
 - a web interface.

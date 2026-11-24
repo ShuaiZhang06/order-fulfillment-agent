@@ -1,0 +1,63 @@
+Chat mode. Type a request such as "check order 1001", or: all, reset, quit
+
+seller> check order 1001
+
+========== Order 1001 ==========
+
+[1001] step 1  MODEL   Check order details first
+           ACTION  check_order {"order_id": 1001}
+           RESULT  ok: Order is complete and in stock. Ready to ship.
+
+[1001] step 2  MODEL   Book shipment for order
+           ACTION  book_shipment {"order_id": 1001}
+
+  Order 1001: 2 x Ceramic Coffee Mug
+  Ship to: Alice Chen, 12 Maple St, Springfield, phone 9194050601
+  Approve shipment? [y/n] y
+           RESULT  ok: Shipment booked. Tracking number: SIM10000001.
+
+[1001] step 3  MODEL   Send shipping confirmation to buyer
+           ACTION  message_buyer {"order_id": 1001, "message_type": "shipping_confirmation", "text": "Your order (ID: 1001) has been shipped. Tracking number: SIM10000001. Carrier: SimShip. Thank you for your purchase!"}
+           RESULT  ok: Message sent to Alice Chen (simulated).
+
+[1001] step 4  MODEL   Finish order with shipped status
+           ACTION  finish {"order_id": 1001, "outcome": "shipped", "summary": "Order 1001 has been shipped. Tracking number: SIM10000001. Carrier: SimShip."}
+           RESULT  ok: Verified: order 1001 is 'shipped'.
+
+[1001] DONE  outcome 'shipped' verified.
+           Report to seller: Order 1001 has been shipped. Tracking number: SIM10000001. Carrier: SimShip.
+
+========== Summary ==========
+  Order 1001: shipped
+  Records: state/trace.jsonl, state/outbox.jsonl, state/shipments.json
+
+seller> what about 1003?
+
+========== Order 1003 ==========
+
+[1003] step 1  MODEL   Check order details first
+           ACTION  check_order {"order_id": 1003}
+           RESULT  ok: Order cannot be shipped yet: missing_field:address
+
+[1003] step 2  MODEL   Request missing information from the buyer
+           ACTION  message_buyer {"order_id": 1003, "message_type": "missing_info_request", "text": "We need your address to ship the product. Could you please provide it?"}
+           RESULT  ok: Message sent to Carol Wang (simulated).
+
+[1003] step 3  MODEL   Finish order with missing information
+           ACTION  finish {"order_id": 1003, "outcome": "needs_info", "summary": "The order cannot be shipped yet. The buyer needs to provide their address information."}
+           RESULT  ok: Verified: order 1003 is 'needs_info'.
+
+[1003] DONE  outcome 'needs_info' verified.
+           Report to seller: The order cannot be shipped yet. The buyer needs to provide their address information.
+
+========== Summary ==========
+  Order 1003: needs_info
+  Records: state/trace.jsonl, state/outbox.jsonl, state/shipments.json
+
+seller> hello
+Please name one order number, for example: check order 1001
+
+seller> check 1001 and 1002
+Please name one order number, for example: check order 1001
+
+seller> quit
