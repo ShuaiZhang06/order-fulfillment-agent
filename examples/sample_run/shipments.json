@@ -1,0 +1,9 @@
+[
+  {
+    "shipment_id": "SHP001",
+    "order_id": "1001",
+    "tracking_number": "SIM10000001",
+    "carrier": "SimShip",
+    "created_at": "2026-11-23T00:52:00"
+  }
+]

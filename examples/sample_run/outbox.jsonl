@@ -1,0 +1,3 @@
+{"order_id": "1001", "to": "Alice Chen", "message_type": "shipping_confirmation", "text": "Your order (1001) has been shipped. Tracking number: SIM10000001. Carrier: SimShip. Thank you for your purchase!", "time": "2026-11-23T00:52:06"}
+{"order_id": "1002", "to": "Bob Li", "message_type": "cannot_ship_notice", "text": "We are unable to ship your order as there is insufficient stock. You requested 12 units, but only 8 are available.", "time": "2026-11-23T00:52:19"}
+{"order_id": "1003", "to": "Carol Wang", "message_type": "missing_info_request", "text": "Hi Carol, we need your shipping address to process your order. Could you please provide it?", "time": "2026-11-23T00:52:31"}

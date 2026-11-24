@@ -1,0 +1,26 @@
+State reset from data/seed/.
+
+========== Order 1001 ==========
+
+[1001] step 1  MODEL   Check order details first
+           ACTION  check_order {"order_id": 1001}
+           RESULT  ok: Order is complete and in stock. Ready to ship.
+
+[1001] step 2  MODEL   Book shipment for order
+           ACTION  book_shipment {"order_id": 1001}
+
+  Order 1001: 2 x Ceramic Coffee Mug
+  Ship to: Alice Chen, 12 Maple St, Springfield, phone 9194050601
+  Approve shipment? [y/n] n
+           RESULT  FAILED: The seller declined this shipment. Nothing was booked.
+
+[1001] step 3  MODEL   Seller declined shipment
+           ACTION  finish {"order_id": 1001, "outcome": "declined", "summary": "The seller declined to ship this order."}
+           RESULT  ok: Verified: order 1001 is 'declined'.
+
+[1001] DONE  outcome 'declined' verified.
+           Report to seller: The seller declined to ship this order.
+
+========== Summary ==========
+  Order 1001: declined
+  Records: state/trace.jsonl, state/outbox.jsonl, state/shipments.json

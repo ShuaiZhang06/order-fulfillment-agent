@@ -1,0 +1,18 @@
+State reset from data/seed/.
+
+========== Order 9999 ==========
+
+[9999] step 1  MODEL   Check order status first
+           ACTION  check_order {"order_id": 9999}
+           RESULT  FAILED: Order 9999 does not exist.
+
+[9999] step 2  MODEL   Order not found
+           ACTION  finish {"order_id": 9999, "outcome": "not_found", "summary": "The order does not exist."}
+           RESULT  ok: Verified: order 9999 is 'not_found'.
+
+[9999] DONE  outcome 'not_found' verified.
+           Report to seller: The order does not exist.
+
+========== Summary ==========
+  Order 9999: not_found
+  Records: state/trace.jsonl, state/outbox.jsonl, state/shipments.json
